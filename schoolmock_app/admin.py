@@ -1,0 +1,53 @@
+from django.contrib import admin
+from django.db.models import Sum
+from .models import Teacher, Student, Test, Question, AnswerOption, StudentAnswer
+
+class AnswerOptionInline(admin.TabularInline):
+    model = AnswerOption
+    extra = 1  # Number of empty forms to display for new options
+    fields = ('text', 'is_correct')  # Include the is_correct field
+
+@admin.register(Teacher)
+class TeacherAdmin(admin.ModelAdmin):
+    list_display = ('user', 'school')
+    search_fields = ('user__username', 'school')
+
+@admin.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'surname', 'school', 'classroom')
+    search_fields = ('name', 'surname')
+
+@admin.register(Test)
+class TestAdmin(admin.ModelAdmin):
+    list_display = ('title', 'teacher', 'classroom', 'start_date', 'duration', 'is_finished')
+    list_filter = ('teacher', 'classroom', 'is_finished')
+    search_fields = ('title',)
+
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('text', 'test', 'difficulty')
+    list_filter = ('test',)
+    inlines = [AnswerOptionInline]  # Allow adding multiple answer options inline
+
+@admin.register(StudentAnswer)
+class StudentAnswerAdmin(admin.ModelAdmin):
+    list_display = ('student', 'test', 'question', 'get_answer_text', 'points_awarded', 'total_points')
+    list_filter = ('test', 'student')
+
+    def get_answer_text(self, obj):
+        """Display the text of the selected answer option."""
+        return obj.answer.text
+    get_answer_text.short_description = 'Answer'
+
+    def total_points(self, obj):
+        """Calculate total points for each student in the specific test."""
+        return (
+            StudentAnswer.objects.filter(student=obj.student, test=obj.test)
+            .aggregate(total=Sum('points_awarded'))['total']
+        )
+    total_points.short_description = 'Total Points'
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.select_related('student', 'test', 'question', 'answer')
+        return qs
