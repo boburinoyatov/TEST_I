@@ -3,21 +3,32 @@ from django.contrib.auth.models import User
 
 # Модель учителя
 class Teacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="teachers")
     school = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.user.username
+        return self.user
 
 # Модель студента
 class Student(models.Model):
+    TEACHER = 'teacher'
+    STUDENT = 'student'
+    ROLE = [
+        (TEACHER, 'TEACHER'),
+        (STUDENT, 'STUDENT'),
+    ]
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="students")
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
-    school = models.CharField(max_length=100)
-    classroom = models.CharField(max_length=50)
+    school = models.CharField(max_length=255)
+    classroom = models.CharField(max_length=10)  # or IntegerField based on your use case
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    role = models.CharField(max_length=30)
 
     def __str__(self):
         return f"{self.name} {self.surname}"
+
 
 # Модель теста
 class Test(models.Model):
@@ -58,9 +69,9 @@ class StudentAnswer(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     test = models.ForeignKey(Test, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    answer_option = models.ForeignKey(AnswerOption, on_delete=models.CASCADE, null=True, blank=True)  # For multiple-choice questions
-    written_answer = models.TextField(null=True, blank=True)  # For open-ended questions
+    answer_option = models.ForeignKey(AnswerOption, on_delete=models.CASCADE, null=True, blank=True)
+    text_answer = models.TextField(null=True, blank=True)
     points_awarded = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.student.name} {self.student.surname} - {self.test.title}"
+        return f"Answer by {self.student} for {self.test}"

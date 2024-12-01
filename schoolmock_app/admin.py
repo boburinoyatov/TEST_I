@@ -4,18 +4,19 @@ from .models import Teacher, Student, Test, Question, AnswerOption, StudentAnswe
 
 class AnswerOptionInline(admin.TabularInline):
     model = AnswerOption
+    max_num = 4
     extra = 1  # Number of empty forms to display for new options
     fields = ('text', 'is_correct')  # Include the is_correct field
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
     list_display = ('user', 'school')
-    search_fields = ('user__username', 'school')
+    search_fields = ('user', 'school')
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'surname', 'school', 'classroom')
-    search_fields = ('name', 'surname')
+    list_display = ('user', 'name', 'surname', 'school', 'classroom', 'created_at', 'updated_at')
+    search_fields = ('user', 'name', 'surname', 'school', 'classroom', 'created_at', 'updated_at')
 
 @admin.register(Test)
 class TestAdmin(admin.ModelAdmin):
@@ -36,18 +37,21 @@ class StudentAnswerAdmin(admin.ModelAdmin):
 
     def get_answer_text(self, obj):
         """Display the text of the selected answer option."""
-        return obj.answer.text
+        if obj.answer_option:
+            return obj.answer_option.text  # Return the selected answer option text
+        return obj.text_answer  # Fallback to the text answer for open-ended questions
     get_answer_text.short_description = 'Answer'
 
     def total_points(self, obj):
         """Calculate total points for each student in the specific test."""
         return (
             StudentAnswer.objects.filter(student=obj.student, test=obj.test)
-            .aggregate(total=Sum('points_awarded'))['total']
+            .aggregate(total=Sum('points_awarded'))['total'] or 0  # Default to 0 if no answers
         )
     total_points.short_description = 'Total Points'
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        qs = qs.select_related('student', 'test', 'question', 'answer')
+        # Select related fields for optimized query performance
+        qs = qs.select_related('student', 'test', 'question', 'answer_option')
         return qs

@@ -1,14 +1,14 @@
-# from django import forms
+from django import forms
 
-# from .models import *
+from .models import *
 
-# class EnterNameForm(forms.ModelForm):
-#   class Meta:
-#     model = Student
-#     fields = ['name', 'surname', 'school', 'classroom']
-#     widgets = {
-#       'name': forms.TextInput(attrs={'class': 'form-control'}),
-#       'surname': forms.TextInput(attrs={'class': 'form-control'}),
-#       'school': forms.TextInput(attrs={'class': 'form-control'}),
-#       'classroom': forms.TextInput(attrs={'class': 'form-control'}),
-#     }
+class EnterNameForm(forms.ModelForm):
+  class Meta:
+    model = Student
+    fields = ['name', 'surname', 'school', 'classroom']
+    widgets = {
+      'name': forms.TextInput(attrs={'type': 'text', 'id': 'student-name', 'placeholder': 'Введите имя'}),
+      'surname': forms.TextInput(attrs={'type': 'text', 'id': 'student-surname', 'placeholder': 'Введите фамилию'}),
+      'school': forms.TextInput(attrs={'type': 'text', 'id': 'student-school', 'placeholder': 'Введите школу'}),
+      'classroom': forms.TextInput(attrs={'type': 'text', 'id': 'student-class', 'placeholder': 'Введите класс'}),
+    }

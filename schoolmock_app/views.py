@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -11,66 +11,81 @@ from .forms import *
 
 
 # ViewSet для управления тестами
+
 class TestViewSet(viewsets.ModelViewSet):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
 
     @action(detail=True, methods=['post'])
     def submit_answer(self, request, pk=None):
-        test = self.get_object()
-        if test.is_finished:
-            return Response({'error': 'Test is already finished.'}, status=status.HTTP_400_BAD_REQUEST)
+          test = self.get_object()
+          if test.is_finished:
+              return Response({'error': 'Test is already finished.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        student = request.data.get('student')
-        answers = request.data.get('answers')
+          # Retrieve student details from the request
+          student_data = request.data.get('student')
+          if not student_data:
+              return Response({'error': 'Student information is required.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        total_points = 0
-        response_data = []
+          # Check if the student exists, if not, create a new one
+          student, created = Student.objects.get_or_create(
+              student_id=student_data['student_id'],
+              defaults={
+                  'first_name': student_data['first_name'],
+                  'last_name': student_data['last_name'],
+                  'school': student_data['school'],
+                  'student_class': student_data['student_class'],
+              }
+          )
 
-        for ans in answers:
-            try:
-                question = Question.objects.get(id=ans['question_id'])
-                correct_answer = AnswerOption.objects.filter(question=question, is_correct=True).first()
+          answers = request.data.get('answers')
+          total_points = 0
+          response_data = []
 
-                points_awarded = 1 if correct_answer and ans['answer_id'] == correct_answer.id else 0
+          for ans in answers:
+              try:
+                  question = Question.objects.get(id=ans['question_id'])
+                  correct_answer = AnswerOption.objects.filter(question=question, is_correct=True).first()
 
-                student_answer = StudentAnswer.objects.create(
-                    student_id=student,
-                    test=test,
-                    question_id=ans['question_id'],
-                    answer_id=ans['answer_id'],
-                    points_awarded=points_awarded
-                )
+                  points_awarded = 1 if correct_answer and ans['answer_id'] == correct_answer.id else 0
 
-                total_points += points_awarded
-                response_data.append({
-                    'question_id': question.id,
-                    'points_awarded': points_awarded
-                })
+                  # Save the student's answer and points
+                  student_answer = StudentAnswer.objects.create(
+                      student=student,
+                      test=test,
+                      question=question,
+                      answer_option_id=ans['answer_id'],
+                      points_awarded=points_awarded,
+                      text_answer=ans.get('text_answer', None)  # In case of open-ended questions
+                  )
 
-            except ObjectDoesNotExist:
-                return Response({'error': 'Question or answer does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
+                  total_points += points_awarded
+                  response_data.append({
+                      'question_id': question.id,
+                      'points_awarded': points_awarded
+                  })
 
-        test.is_finished = True
-        test.finished_at = timezone.now()
-        test.save()
+              except ObjectDoesNotExist:
+                  return Response({'error': 'Question or answer does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response({'status': 'answers submitted', 'total_points': total_points, 'details': response_data}, status=status.HTTP_200_OK)
+          test.is_finished = True
+          test.finished_at = timezone.now()
+          test.save()
+
+          return Response({'status': 'answers submitted', 'total_points': total_points, 'details': response_data}, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['get'])
     def test_by_id(self, request):
-            test_id = request.query_params.get('test_id')
-            test = Test.objects.filter(id=test_id).first()
-            if not test:
-                return Response({'error': 'Invalid test ID'}, status=status.HTTP_404_NOT_FOUND)
+          test_id = request.query_params.get('test_id')
+          test = Test.objects.filter(id=test_id).first()
+          if not test:
+              return Response({'error': 'Invalid test ID'}, status=status.HTTP_404_NOT_FOUND)
 
-            serializer = self.get_serializer(test)
-            return Response(serializer.data)
+          serializer = self.get_serializer(test)
+          return Response(serializer.data)
+
+def test(request):
+    return render(request, 'test.html')
 
 def home(request):
-    # if request.method == 'POST':
-    #     form = EnterNameForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    # student_form = EnterNameForm()
     return render(request, 'index.html',)

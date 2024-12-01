@@ -4,16 +4,25 @@ let testId = null;
 let currentQuestionIndex = 0;
 let answeredQuestions = new Set(); // To track answered questions
 
+// Capture student details
+let studentName, studentSurname, studentSchool, studentClass;
+
 async function enterTest() {
-    testId = document.getElementById('test-id').value;
-    const response = await fetch(`/api/tests/test_by_id?test_id=${testId}`);
-    if (response.status === 404) {
-        alert("Тест с таким ID не найден");
-        return;
-    }
-    const test = await response.json();
-    loadTest(test);
-    startTimer();
+  const testInput = document.getElementById('test-id');
+  if (!testInput) {
+      console.error('Input element with ID "test-id" not found.');
+      return;
+  }
+
+  testId = testInput.value;
+  const response = await fetch(`/api/tests/test_by_id?test_id=${testId}`);
+  if (response.status === 404) {
+      alert("Тест с таким ID не найден");
+      return;
+  }
+  const test = await response.json();
+  loadTest(test);
+  startTimer();
 }
 
 function loadTest(test) {
@@ -148,10 +157,22 @@ async function submitTest() {
         }
     });
 
-    await fetch(`/api/tests/${testId}/submit_answer/`, {
+    // Include student details in the submission
+    const studentDetails = {
+        name: studentName,
+        surname: studentSurname,
+        school: studentSchool,
+        class: studentClass
+    };
+
+    // Send all data to the backend
+    await fetch(`/api/tests/${testId}/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ answers: answers })
+        body: JSON.stringify({
+            student_details: studentDetails,
+            answers: answers
+        })
     });
 
     document.getElementById('completion-message').style.display = 'block';

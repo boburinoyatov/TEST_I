@@ -6,6 +6,7 @@ router = DefaultRouter()
 router.register(r'tests', TestViewSet)
 
 urlpatterns = [
-    path('', home, name="home"),
-    path('accounts/', include('accounts.urls')),
+    path('home/', home, name="home"),
+    path('test/', test, name="test-view"),
+    path('', include('accounts.urls')),
 ]

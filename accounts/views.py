@@ -9,13 +9,15 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            user.is_staff = True
+            user.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             messages.success(request, 'Shaxsiy kabinetga xush kelibsiz!')
-            return redirect('home')
+            return redirect('test-view')
     else:
         form = SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form})
@@ -28,7 +30,7 @@ def login_view(request):
             user = form.get_user()
             login(request, user)
             messages.success(request, "Siz hozir login qildingiz!")
-            return redirect('home')
+            return redirect('test-view')
     else:
         form = LoginForm()
     return render(request, 'accounts/login.html', {'form': form})
