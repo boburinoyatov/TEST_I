@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f299cd05-f11a-405f-8e8f-aa4152094c30" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schoolmock_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schoolmock_app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_app/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schoolmock_app/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_app/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schoolmock_app/migrations/0002_remove_studentanswer_answer_question_is_open_ended_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/schoolmock_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schoolmock_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schoolmock_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="f299cd05-f11a-405f-8e8f-aa4152094c30" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
