@@ -8,7 +8,7 @@ class AnswerOptionInline(admin.TabularInline):
     extra = 1  # Number of empty forms to display for new options
     fields = ('text', 'is_correct')  # Include the is_correct field
 
-@admin.register(User)
+@admin.register(Profile)
 class StudentAdmin(admin.ModelAdmin):
     list_display = ('user', 'name', 'surname', 'school', 'classroom', 'created_at', 'updated_at')
     search_fields = ('user', 'name', 'surname', 'school', 'classroom', 'created_at', 'updated_at')

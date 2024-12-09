@@ -4,7 +4,7 @@ from .models import *
 
 class EnterNameForm(forms.ModelForm):
   class Meta:
-    model = User
+    model = Profile
     fields = ['name', 'surname', 'school', 'classroom']
     widgets = {
       'name': forms.TextInput(attrs={'type': 'text', 'id': 'student-name', 'placeholder': 'Введите имя'}),

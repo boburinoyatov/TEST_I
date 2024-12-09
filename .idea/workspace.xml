@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f299cd05-f11a-405f-8e8f-aa4152094c30" name="Changes" comment="" />
+    <list default="true" id="f299cd05-f11a-405f-8e8f-aa4152094c30" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/schoolmock_imest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/schoolmock_imest.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schoolmock_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schoolmock_app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_app/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schoolmock_app/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_app/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schoolmock_app/migrations/0002_alter_student_user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schoolmock_app/migrations/0003_student_role_alter_teacher_user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schoolmock_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schoolmock_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/app.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,5 +64,16 @@
       <updated>1731580205281</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

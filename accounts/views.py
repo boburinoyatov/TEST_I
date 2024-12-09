@@ -17,13 +17,13 @@ def signup(request):
             role = form.cleaned_data.get('role')
 
             # Устанавливаем статус is_staff, если роль TEACHER
-            if role == User.TEACHER:
+            if role == Profile.TEACHER:
                 user.is_staff = True
 
             user.save()  # Сохраняем пользователя
 
             # Создаем запись в модели Student
-            User.objects.create(
+            Profile.objects.create(
                 user=user,
                 name=user.first_name,  # Или другое поле формы
                 surname=user.last_name,  # Или другое поле формы
@@ -39,7 +39,8 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form})
 
-
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(data=request.POST)

@@ -134,6 +134,23 @@ function startTimer() {
     }, 1000);
 }
 
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+
+
 async function submitTest() {
     const answers = [];
     const questions = document.querySelectorAll('.question');
@@ -165,15 +182,21 @@ async function submitTest() {
         class: studentClass
     };
 
+    const csrftoken = getCookie('csrftoken');
+    console.log(csrftoken);
     // Send all data to the backend
-    await fetch(`/api/tests/${testId}/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            student_details: studentDetails,
-            answers: answers
-        })
-    });
+    await fetch(`/api/tests/${testId}/submit_answer/`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken // Replace with the actual CSRF token value
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+          student_details: studentDetails,
+          answers: answers
+      })
+  });
 
     document.getElementById('completion-message').style.display = 'block';
     document.getElementById('submit-button').style.display = 'none';

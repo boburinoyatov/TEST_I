@@ -6,8 +6,8 @@ from django import forms
 
 
 class SignUpForm(UserCreationForm):
-    from schoolmock_app.models import User
-    role = forms.ChoiceField(choices=User.ROLE, label="Роль", widget=forms.RadioSelect)
+    from schoolmock_app.models import Profile
+    role = forms.ChoiceField(choices=Profile.ROLE, label="Роль", widget=forms.RadioSelect)
 
     class Meta:
         from django.contrib.auth.models import User

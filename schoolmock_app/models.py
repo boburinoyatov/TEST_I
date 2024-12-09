@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Модель студента
-class User(models.Model):
+class Profile(models.Model):
     TEACHER = 'teacher'
     STUDENT = 'student'
     ROLE = [
