@@ -5,18 +5,35 @@ from django.contrib import messages
 from accounts.forms import SignUpForm, LoginForm
 
 
+from django.contrib.auth.models import User
+from schoolmock_app.models import *
+from .forms import SignUpForm
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.is_staff = True
-            user.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            user = form.save(commit=False)  # Создаем объект пользователя, но пока не сохраняем его
+            role = form.cleaned_data.get('role')
+
+            # Устанавливаем статус is_staff, если роль TEACHER
+            if role == User.TEACHER:
+                user.is_staff = True
+
+            user.save()  # Сохраняем пользователя
+
+            # Создаем запись в модели Student
+            User.objects.create(
+                user=user,
+                name=user.first_name,  # Или другое поле формы
+                surname=user.last_name,  # Или другое поле формы
+                role=role,
+                school="",  # Предусмотрите возможность ввода школы
+                classroom=""  # Или задайте значение по умолчанию
+            )
+
+            # Аутентификация пользователя
             login(request, user)
-            messages.success(request, 'Shaxsiy kabinetga xush kelibsiz!')
             return redirect('test-view')
     else:
         form = SignUpForm()

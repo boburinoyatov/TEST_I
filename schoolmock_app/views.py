@@ -23,13 +23,13 @@ class TestViewSet(viewsets.ModelViewSet):
               return Response({'error': 'Test is already finished.'}, status=status.HTTP_400_BAD_REQUEST)
 
           # Retrieve student details from the request
-          student_data = request.data.get('student')
-          if not student_data:
+          user = request.user
+          if not user:
               return Response({'error': 'Student information is required.'}, status=status.HTTP_400_BAD_REQUEST)
 
           # Check if the student exists, if not, create a new one
           student, created = Student.objects.get_or_create(
-              student_id=student_data['student_id'],
+              student=user,
               defaults={
                   'first_name': student_data['first_name'],
                   'last_name': student_data['last_name'],

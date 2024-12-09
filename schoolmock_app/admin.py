@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.db.models import Sum
-from .models import Teacher, Student, Test, Question, AnswerOption, StudentAnswer
+from .models import *
 
 class AnswerOptionInline(admin.TabularInline):
     model = AnswerOption
@@ -8,12 +8,7 @@ class AnswerOptionInline(admin.TabularInline):
     extra = 1  # Number of empty forms to display for new options
     fields = ('text', 'is_correct')  # Include the is_correct field
 
-@admin.register(Teacher)
-class TeacherAdmin(admin.ModelAdmin):
-    list_display = ('user', 'school')
-    search_fields = ('user', 'school')
-
-@admin.register(Student)
+@admin.register(User)
 class StudentAdmin(admin.ModelAdmin):
     list_display = ('user', 'name', 'surname', 'school', 'classroom', 'created_at', 'updated_at')
     search_fields = ('user', 'name', 'surname', 'school', 'classroom', 'created_at', 'updated_at')
@@ -55,3 +50,22 @@ class StudentAnswerAdmin(admin.ModelAdmin):
         # Select related fields for optimized query performance
         qs = qs.select_related('student', 'test', 'question', 'answer_option')
         return qs
+
+class TestAdmin(admin.ModelAdmin):
+    def has_module_permission(self, request):
+        # Только пользователи с ролью 'teacher' имеют доступ
+        if hasattr(request.user, 'students') and request.user.students.is_teacher():
+            return True
+        return False
+
+    def has_add_permission(self, request):
+        # Только учителя могут добавлять тесты
+        if hasattr(request.user, 'students') and request.user.students.is_teacher():
+            return True
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        # Только учителя могут редактировать тесты
+        if hasattr(request.user, 'students') and request.user.students.is_teacher():
+            return True
+        return False

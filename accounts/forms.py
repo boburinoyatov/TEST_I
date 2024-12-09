@@ -1,11 +1,16 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
+
+
 
 from django import forms
 
 
 class SignUpForm(UserCreationForm):
+    from schoolmock_app.models import User
+    role = forms.ChoiceField(choices=User.ROLE, label="Роль", widget=forms.RadioSelect)
+
     class Meta:
+        from django.contrib.auth.models import User
         model = User
         fields = ['username', 'email', 'password1', 'password2']
         widgets = {
@@ -14,6 +19,11 @@ class SignUpForm(UserCreationForm):
             'password1': forms.PasswordInput(attrs={'class': 'form-control'}),
             'password2': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+        return user
 
 
 class LoginForm(AuthenticationForm):
