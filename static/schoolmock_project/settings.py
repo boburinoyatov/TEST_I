@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 import dj_database_url
 
+from schoolmock_imest.schoolmock_project.settings import ALLOWED_HOSTS
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +28,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-@kw#==i1i$8^g=jdac^@h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False').lower() == "true"
 
-ALLOWED_HOSTS = []
+HOSTS = os.environ.get('ALLOWED_HOSTS')
+ALLOWED_HOSTS = HOSTS.split('  ') if HOSTS else []
 
 
 # Application definition
