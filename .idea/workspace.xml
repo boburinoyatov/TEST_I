@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f299cd05-f11a-405f-8e8f-aa4152094c30" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/schoolmock_imest" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_imest" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/schoolmock_imest/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_imest/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/schoolmock_imest/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_imest/accounts/views.py" afterDir="false" />
@@ -22,7 +23,6 @@
       <change beforePath="$PROJECT_DIR$/schoolmock_imest/templates/accounts/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_imest/templates/accounts/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/schoolmock_imest/templates/accounts/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_imest/templates/accounts/signup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/schoolmock_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_project/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schoolmock_project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/schoolmock_project/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
