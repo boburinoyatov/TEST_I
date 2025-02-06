@@ -83,10 +83,12 @@ class TestViewSet(viewsets.ModelViewSet):
                     return Response({'error': f'Question with id {question_id} does not exist.'}, 
                                     status=status.HTTP_400_BAD_REQUEST)
 
-            # Mark the test as finished
-            test.is_finished = True
-            test.finished_at = timezone.now()
-            test.save()
+
+            if test.is_finished == test.finished_at:
+                test.is_finished = True
+                test.save()
+            else:
+                test.is_finished = False
 
         except Exception as e:
             return Response({'error': 'An error occurred while processing answers.', 'details': str(e)}, 

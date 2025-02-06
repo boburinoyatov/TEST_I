@@ -37,6 +37,9 @@ class Test(models.Model):
 
     def __str__(self):
         return self.title
+    
+    if is_finished == finished_at:
+        is_finished = True
 
 # Модель вопроса
 # Модель вопроса
@@ -45,7 +48,7 @@ class Question(models.Model):
     text = models.TextField()
     difficulty = models.IntegerField(default=1)
     correct_answer = models.CharField(max_length=255)  # Used for checking open-ended answers
-    is_open_ended = models.BooleanField(default=False)  # New field to indicate if it's an open-ended question
+    # is_open_ended = models.BooleanField(default=False)  # New field to indicate if it's an open-ended question
 
     def __str__(self):
         return self.text

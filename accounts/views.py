@@ -47,7 +47,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            messages.success(request, "Siz hozir login qildingiz!")
+            messages.success(request, "Siz hozir login qildingiz!",)
             return redirect('test-view')
     else:
         form = LoginForm()
