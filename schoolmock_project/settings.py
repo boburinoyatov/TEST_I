@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@kw#==i1i$8^g=jdac^@h4fwatyn@8pj^s0rr8ry5o_y8b&l%_'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-@kw#==i1i$8^g=jdac^@h4fwatyn@8pj^s0rr8ry5o_y8b&l%_')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False').lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*')
 
 
 # Application definition
@@ -83,6 +84,10 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+db_url = 'postgresql://test_db_fxzd_user:g5gJpSiWuJNZiWbeZrIDTryz23hOFUHa@dpg-cuia8u56l47c73fa3mn0-a.oregon-postgres.render.com/test_db_fxzd'
+DATABASES['default'] = dj_database_url.parse(db_url)
 
 
 # Password validation
