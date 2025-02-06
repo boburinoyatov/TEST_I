@@ -86,7 +86,7 @@ DATABASES = {
 }
 
 
-db_url = 'postgresql://test_db_fxzd_user:g5gJpSiWuJNZiWbeZrIDTryz23hOFUHa@dpg-cuia8u56l47c73fa3mn0-a.oregon-postgres.render.com/test_db_fxzd'
+db_url = os.environ.get('DATABASE_URL', 'postgresql://test_db_fxzd_user:g5gJpSiWuJNZiWbeZrIDTryz23hOFUHa@dpg-cuia8u56l47c73fa3mn0-a.oregon-postgres.render.com/test_db_fxzd')
 DATABASES['default'] = dj_database_url.parse(db_url)
 
 
