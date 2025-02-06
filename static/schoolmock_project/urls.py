@@ -11,5 +11,6 @@ urlpatterns = [
     path('', include('schoolmock_app.urls')),
     path('api/', include(router.urls)),
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # new
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # new
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # new
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # new
