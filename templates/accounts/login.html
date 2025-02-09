@@ -1,4 +1,5 @@
 {% extends 'auth_base.html' %}
+{% load static %}
 
 {% block auth %}
 <style>
@@ -106,7 +107,7 @@
 
 <body>
   <div class="login-container">
-      <img src="./templates/imest_logo.png" alt="Logo">
+      <img src="{% static 'img/imest_logo.png' %}" alt="Logo">
       <h2>School Login</h2>
       <form method="POST">
           {% csrf_token %}
