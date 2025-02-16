@@ -31,7 +31,8 @@
     }
 
     .login-container img {
-        width: 100px;
+        width: 200px;
+        height: 50px;
         margin-bottom: 20px;
     }
 
@@ -114,13 +115,13 @@
 
 <body>
 <div class="login-container">
-    <img src="{% static 'img/logo.png' %}" alt="Logo">
+    <img src="{% static 'img/imest_logo.png' %}" alt="Logo">
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Sign In</button>
     </form>
-    <p>New here? <a href="{% url 'signup' %}">Register</a></p>
+    <p>New here? <a href="{% url 'signup' %}" style="color: blue;">Register</a></p>
 </div>
 </body>
 {% endblock %}

@@ -5,7 +5,7 @@
 <style>
 body {
   font-family: 'Comic Sans MS', cursive, sans-serif; /* Школьный шрифт */
-  background: linear-gradient(135deg, #fffae6, #fff3d6); /* Фон в стиле школьной тетради */
+  background: rgb(188, 206, 239); /* Фон в стиле школьной тетради */
   margin: 0;
   padding: 0;
   display: flex;
@@ -24,8 +24,8 @@ body {
   width: 100%;
   max-width: 400px;
   padding: 20px;
-  background: #fff8e1; /* Светлый фон для школьной стилистики */
-  border: 2px dashed #ff9800; /* Школьный стиль рамки */
+  background: white; /* Светлый фон для школьной стилистики */
+  border: 2px solid black; /* Школьный стиль рамки */
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -47,24 +47,25 @@ body {
   padding: 10px;
   font-size: 14px; /* Уменьшение размера текста */
   margin-bottom: 15px;
-  border: 1px solid #ff9800;
+  border: 1px solid blue;
   border-radius: 10px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .login-container button {
   padding: 10px 20px;
-  background: #ff9800;
-  border: none;
+  border: 2px solid black;
   border-radius: 10px;
-  color: white;
+  color: black;
   font-size: 16px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .login-container button:hover {
-  background: #e65100;
+  border: 2px solid blue;
+  color: blue;
+  transition: 0.5s;
 }
 
 .login-container p {
@@ -147,13 +148,12 @@ body {
 <body>
   <div class="login-container">
       <img src="{% static 'img/imest_logo.png' %}" alt="School Logo">
-      <h2>Sign Up</h2>
       <form method="POST">
           {% csrf_token %}
           {{ form.as_p }}
           <button type="submit">Sign Up</button>
       </form>
-      <p>Back to <a href="{% url 'login' %}">Log in</a></p>
+      <p>Back to <a href="{% url 'login' %}" style="color: blue;">Log in</a></p>
   </div>
 </body>
 {% endblock %}

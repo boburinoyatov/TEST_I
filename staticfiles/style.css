@@ -49,35 +49,32 @@ body {
 
 button {
   padding: 10px 20px;
-  background: #ff9800;
-  border: none;
+  background: white;
+  border: 2px solid black;
   border-radius: 10px;
-  color: white;
+  color: black;
   font-size: 16px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 button:hover {
-  background: #e65100;
-  transform: scale(1.05); /* Лёгкое увеличение */
+  background: white;
+  transform: scale(1.05);
+  color: blue;/* Лёгкое увеличение */
+  border: 2px solid blue;
+  transition: 0.5s;
 }
 
 .question {
   margin: 20px 0;
   padding: 30px;
-  border: 3px dashed #ff9800;
+  border: 3px dashed white;
   border-radius: 20px;
-  background: linear-gradient(135deg, #fffdf5, #fff4e0);
+  background: rgb(188, 206, 239);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
-}
-
-.question:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  border: 3px dashed #ff5722;
 }
 
 .question::before {
@@ -95,19 +92,14 @@ button:hover {
   justify-content: space-between;
   padding: 20px;
   margin: 15px 0;
-  border: 2px solid #ffc107;
+  border: 2px solid blue;
   border-radius: 15px;
-  background: linear-gradient(135deg, #fffbea, #ffefd5);
+  background: rgb(188, 206, 239);
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, background 0.3s ease;
 }
 
-.option:hover {
-  background: linear-gradient(135deg, #ffedcc, #fff2e0);
-  transform: translateY(-3px);
-  border-color: #ff9800;
-}
 
 .option:active {
   transform: scale(0.98);
@@ -167,17 +159,20 @@ button:hover {
 
 #submit-button {
   padding: 10px 20px;
-  background: #ff9800;
-  border: none;
+  background: white;
+  border: 2px solid blue;
   border-radius: 10px;
-  color: white;
+  color: black;
   font-size: 16px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 #submit-button:hover {
-  background: #e65100;
+  background: white;
+  border: 2px solid blue;
+  color: blue;
+  transition: 0.5s;
   transform: scale(1.05);
 }
 
